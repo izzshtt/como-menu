@@ -57,7 +57,7 @@ export function App() {
 
   return (
     <div className="site">
-      <div className="frame">
+      <div className={isHome ? "frame frame--home" : "frame"}>
         <Header tone={headerTone} showBack={!isHome} onMenu={openMenu} />
         <div key={path} className="page-transition">
           {page}

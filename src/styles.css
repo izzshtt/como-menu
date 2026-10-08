@@ -194,6 +194,40 @@ button {
   height: clamp(380px, 110vw, 500px);
 }
 
+/* Home fits one screen: the hero takes whatever height the header and the
+   cards leave over, so ETEN / DRANKJES are fully visible on open. */
+.frame--home {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 0;
+}
+
+@supports (height: 100svh) {
+  .frame--home {
+    height: 100svh;
+  }
+}
+
+.frame--home > .page-transition,
+.frame--home .page--home {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.frame--home .hero--home {
+  flex: 1 1 0;
+  height: auto;
+  min-height: 160px;
+  max-height: 500px;
+}
+
+.frame--home .home__choose {
+  flex: none;
+}
+
 .hero--category {
   height: clamp(340px, 98vw, 440px);
 }
