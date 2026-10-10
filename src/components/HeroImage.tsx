@@ -1,4 +1,5 @@
 import type { Photo } from "../data/menu"
+import { SIZES } from "../photoSizes"
 import { OrganicCurve } from "./OrganicCurve"
 
 type Props = {
@@ -14,6 +15,8 @@ export function HeroImage({ photo, alt, variant }: Props) {
       <img
         className="hero__img"
         src={photo.src}
+        srcSet={photo.srcSet}
+        sizes={SIZES.hero}
         alt={alt}
         style={{ objectPosition: photo.position }}
         fetchPriority="high"

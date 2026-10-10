@@ -1,11 +1,12 @@
 import { useCallback, useEffect, useState } from "react"
 import { Header } from "./components/Header"
 import { NavMenu } from "./components/NavMenu"
-import { findCategory, findSection } from "./data/menu"
+import { findCategory, findSection, sections } from "./data/menu"
 import { CategoryPage } from "./pages/CategoryPage"
 import { Home } from "./pages/Home"
 import { SectionPage } from "./pages/SectionPage"
 import { Splash } from "./pages/Splash"
+import { preload } from "./photoSizes"
 import { parseRoute, usePath } from "./router"
 
 const SPLASH_MS = 2200
@@ -32,6 +33,13 @@ export function App() {
   const [menuOpen, setMenuOpen] = useState(false)
   const closeMenu = useCallback(() => setMenuOpen(false), [])
   const openMenu = useCallback(() => setMenuOpen(true), [])
+
+  // While the splash shows, fetch the small thumbnails of both sections, so
+  // Eten and Drankjes open with every photo already in place.
+  useEffect(() => {
+    preload(sections.map((s) => s.card), "card")
+    preload(sections.flatMap((s) => s.categories.map((c) => c.thumb)), "row")
+  }, [])
 
   const route = parseRoute(path)
   const section = route.name !== "home" ? findSection(route.section) : undefined

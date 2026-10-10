@@ -1,9 +1,16 @@
+import manifest from "./photo-manifest.json"
+
 // Menu content. Shaped like the documents a CMS (e.g. Sanity) will deliver later:
 // section → categories → items. The visual components only read these fields.
 
 export type Photo = {
+  /** Fallback file (a mid-size variant). */
   src: string
-  /** CSS object-position — keeps the subject in frame when the image is cropped. */
+  /** All generated widths, so the browser picks the smallest that is sharp enough. */
+  srcSet: string
+  /** URL of the smallest variant. */
+  small: string
+  /** CSS object-position: keeps the subject in frame when the image is cropped. */
   position?: string
 }
 
@@ -37,10 +44,20 @@ export type Section = {
   categories: Category[]
 }
 
-const photo = (name: string, position = "50% 50%"): Photo => ({
-  src: `/img/photos/${name.includes(".") ? name : `${name}.png`}`,
-  position,
-})
+// Variants are generated from photos-src/ by `npm run images`.
+const photo = (file: string, position = "50% 50%"): Photo => {
+  const name = file.replace(/\.[a-z]+$/i, "")
+  const widths = (manifest as Record<string, number[]>)[name]
+  if (!widths) throw new Error(`Photo "${name}" missing: add it to photos-src/ and run npm run images`)
+  const url = (w: number) => `/img/photos/${name}-${w}.webp`
+  const mid = widths.find((w) => w >= 640) ?? widths[widths.length - 1]
+  return {
+    src: url(mid),
+    srcSet: widths.map((w) => `${url(w)} ${w}w`).join(", "),
+    small: url(widths[0]),
+    position,
+  }
+}
 
 export const homeHero = photo("home-hero", "50% 62%")
 

@@ -1,4 +1,5 @@
 import type { Section } from "../data/menu"
+import { SIZES } from "../photoSizes"
 import { ArrowRight } from "./Icons"
 import { Link } from "./Link"
 
@@ -9,6 +10,8 @@ export function SectionCard({ section }: { section: Section }) {
       <span className="section-card__media">
         <img
           src={section.card.src}
+          srcSet={section.card.srcSet}
+          sizes={SIZES.card}
           alt=""
           style={{ objectPosition: section.card.position }}
           decoding="async"
