@@ -488,6 +488,25 @@ button {
   color: var(--color-muted);
 }
 
+.menu-footer {
+  margin: 28px var(--gutter) 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--color-divider);
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--color-muted);
+}
+
+.menu-footer p + p {
+  margin-top: 8px;
+}
+
+.menu-footer a {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .back-link {
   display: flex;
   align-items: center;

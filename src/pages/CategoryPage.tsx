@@ -25,6 +25,20 @@ export function CategoryPage({ section, category }: { section: Section; category
             ))}
           </div>
         )}
+        <footer className="menu-footer">
+          <p>Onze producten kunnen allergenen bevatten. Heeft u een allergie? Laat het ons weten.</p>
+          <p className="menu-footer__social">
+            Volg ons:{" "}
+            <a href="https://www.instagram.com/como.arnhem/" target="_blank" rel="noopener noreferrer">
+              Instagram
+            </a>{" "}
+            &amp;{" "}
+            <a href="https://www.tiktok.com/@como.arnhem" target="_blank" rel="noopener noreferrer">
+              TikTok
+            </a>{" "}
+            @como.arnhem
+          </p>
+        </footer>
         <Link to={`/${section.slug}`} className="back-link">
           <ArrowLeft />
           <span>Terug naar {section.title}</span>

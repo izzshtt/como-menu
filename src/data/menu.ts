@@ -131,7 +131,7 @@ export const sections: Section[] = [
           },
           {
             name: "Toast Carpaccio",
-            description: "Rucola, Parmezaanse kaas, pijnboompitten & truffelmayo",
+            description: "Rucola, Parmezaanse kaas, pijnboompitten & truffelmayonaise",
             price: 13,
           },
           {
@@ -140,6 +140,21 @@ export const sections: Section[] = [
             price: 11,
           },
         ],
+      },
+      {
+        slug: "french-toast",
+        title: "French Toast",
+        intro: "Brioche, goudbruin gebakken.",
+        // Placeholder photo until COMO supplies a French Toast photo (add french-toast.png to photos-src/).
+        thumb: photo("pancakes", "50% 50%"),
+        items: [
+          {
+            name: "French Toast",
+            description: "Brioche, vers fruit, Nutella & poedersuiker",
+            price: 14,
+          },
+        ],
+        notes: ["+ Bolletje vanille-ijs € 1,50"],
       },
       {
         slug: "pastas",
@@ -184,8 +199,8 @@ export const sections: Section[] = [
         thumb: photo("crepes.webp", "50% 50%"),
         hero: photo("crepes.webp", "50% 40%"),
         items: [
-          { name: "Crêpe Nutella", description: "Nutella", price: 9 },
-          { name: "Crêpe White Chocola, Aardbei & Banaan", price: 11 },
+          { name: "Crêpe Nutella", price: 9 },
+          { name: "Crêpe Witte Chocola, Aardbei & Banaan", price: 11 },
           { name: "Crêpe Dubai", label: "Favoriet", price: 13.75 },
         ],
         notes: ["+ Bolletje vanille-ijs € 1,50"],
@@ -198,7 +213,7 @@ export const sections: Section[] = [
         items: [
           { name: "Churros Kaneelsuiker", price: 8 },
           { name: "Churros Nutella", price: 9.5 },
-          { name: "Churros White Chocola", price: 9.5 },
+          { name: "Churros Witte Chocola", price: 9.5 },
         ],
         notes: ["+ Extra Nutella € 1,50"],
       },
@@ -213,7 +228,7 @@ export const sections: Section[] = [
       {
         slug: "smoothies",
         title: "Smoothies",
-        intro: "Reset your mind — vers geblend met echt fruit.",
+        intro: "Reset your mind: vers geblend met echt fruit.",
         thumb: photo("smoothies.webp", "50% 40%"),
         hero: photo("smoothies.webp", "50% 35%"),
         items: [
@@ -243,7 +258,7 @@ export const sections: Section[] = [
           { name: "Mocktail Strawberry", price: 7 },
           {
             name: "Mocktail Tropical",
-            description: "Passievruchtsap, Tropical Red Bull, munt & limoen",
+            description: "Passion fruit juice, Tropical Red Bull, munt & limoen",
             price: 8,
           },
         ],
@@ -259,7 +274,7 @@ export const sections: Section[] = [
           { name: "Iced Matcha Strawberry", price: 7 },
           { name: "Iced Matcha Mango", price: 7 },
           { name: "Iced Matcha Passionfruit", price: 7 },
-          { name: "Iced Matcha White Chocola", price: 7 },
+          { name: "Iced Matcha Witte Chocola", price: 7 },
         ],
         notes: [
           "Melk naar keuze: soja, kokos, haver, amandel, vanille of koemelk",
@@ -276,7 +291,7 @@ export const sections: Section[] = [
           { name: "Iced Latte", price: 6 },
           { name: "Iced Caramel Latte", price: 6.5 },
           { name: "Iced Vanilla Latte", price: 6.5 },
-          { name: "Iced White Chocola", price: 7 },
+          { name: "Iced Witte Chocola", price: 7 },
         ],
         notes: ["Siroop naar keuze + € 0,50"],
       },
@@ -285,19 +300,18 @@ export const sections: Section[] = [
         title: "Warme Dranken",
         intro: "Van espresso tot verse muntthee.",
         thumb: photo("warme-dranken", "50% 50%"),
-        // Prices not yet supplied — rows render without a price until they are.
         items: [
-          { name: "Espresso" },
-          { name: "Espresso Doppio" },
-          { name: "Koffie" },
-          { name: "Cappuccino" },
-          { name: "Latte Macchiato" },
-          { name: "Thee" },
-          { name: "Verse Muntthee" },
-          { name: "Marokkaanse Thee", description: "Kleine theepot" },
-          { name: "Marokkaanse Thee To Go" },
-          { name: "Verse Gemberthee" },
-          { name: "Warme Chocolademelk" },
+          { name: "Espresso", price: 3.3 },
+          { name: "Espresso Doppio", price: 3.75 },
+          { name: "Koffie", price: 3.2 },
+          { name: "Cappuccino", price: 4.25 },
+          { name: "Latte Macchiato", price: 4.25 },
+          { name: "Thee", price: 2.5 },
+          { name: "Verse Muntthee", price: 3.5 },
+          { name: "Marokkaanse Thee", description: "Kleine theepot", price: 4.5 },
+          { name: "Marokkaanse Thee To Go", price: 3.5 },
+          { name: "Verse Gemberthee", price: 3.5 },
+          { name: "Warme Chocolademelk", price: 3.5 },
         ],
       },
       {
