@@ -17,11 +17,11 @@ type Frond = {
 }
 
 const fronds: Frond[] = [
-  // Left cluster — reaches in from the left edge, mid-height.
+  // Left cluster: reaches in from the left edge, mid-height.
   { x: -30, y: 480, angle: -50, length: 290, bend: 60, leafLength: 104, leaflets: 15, seed: 1 },
   { x: -50, y: 560, angle: -14, length: 215, bend: 46, leafLength: 86, leaflets: 12, seed: 2 },
   { x: -40, y: 380, angle: -80, length: 240, bend: -40, leafLength: 80, leaflets: 12, seed: 3 },
-  // Right cluster — lower, coming in from the bottom-right corner.
+  // Right cluster: lower, coming in from the bottom-right corner.
   { x: 430, y: 900, angle: -128, length: 330, bend: -56, leafLength: 108, leaflets: 15, seed: 4 },
   { x: 440, y: 770, angle: -165, length: 230, bend: -40, leafLength: 74, leaflets: 12, seed: 5 },
   { x: 410, y: 960, angle: -100, length: 220, bend: 36, leafLength: 70, leaflets: 11, seed: 6 },

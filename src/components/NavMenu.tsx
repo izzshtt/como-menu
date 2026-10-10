@@ -31,7 +31,7 @@ export function NavMenu({ open, onClose }: Props) {
     <div className={`nav ${open ? "is-open" : ""}`} aria-hidden={!open} inert={!open}>
       <div className="nav__panel" role="dialog" aria-modal="true" aria-label="Navigatie">
         <div className="nav__top">
-          <Link to="/" onClick={onClose} className="header__logo" aria-label="COMO. — naar home">
+          <Link to="/" onClick={onClose} className="header__logo" aria-label="COMO., naar home">
             <Logo />
           </Link>
           <button ref={closeRef} type="button" className="icon-button" onClick={onClose} aria-label="Menu sluiten">

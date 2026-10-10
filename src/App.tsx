@@ -15,7 +15,7 @@ const SPLASH_FADE_MS = 700
 function useSplash() {
   const [stage, setStage] = useState<"show" | "leaving" | "done">("show")
   useEffect(() => {
-    // `?splash` keeps the splash on screen — handy when reviewing it.
+    // `?splash` keeps the splash on screen, handy when reviewing it.
     if (new URLSearchParams(window.location.search).has("splash")) return
     const leave = window.setTimeout(() => setStage("leaving"), SPLASH_MS)
     const done = window.setTimeout(() => setStage("done"), SPLASH_MS + SPLASH_FADE_MS)
@@ -57,10 +57,10 @@ export function App() {
 
   useEffect(() => {
     document.title = category
-      ? `${category.title} — COMO.`
+      ? `${category.title} | COMO.`
       : section
-        ? `${section.title} — COMO.`
-        : "COMO. bakery & brunch — Menu"
+        ? `${section.title} | COMO.`
+        : "COMO. bakery & brunch | Menu"
   }, [section, category])
 
   return (

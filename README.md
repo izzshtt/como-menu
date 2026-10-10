@@ -1,4 +1,4 @@
-# COMO. bakery & brunch — digitale menukaart
+# COMO. bakery & brunch: digitale menukaart
 
 View-only QR menu (no ordering). Vite + React + TypeScript, static output.
 
@@ -9,10 +9,10 @@ npm run build    # static site in dist/
 ```
 
 ## Structure
-- `src/data/menu.ts` — all content (sections → categories → items). Shaped like future Sanity documents.
-- `src/components/` — Header, Logo, HeroImage, OrganicCurve, PalmShadows, SectionCard, CategoryRow, MenuItemRow, Price, NavMenu.
-- `src/pages/` — Splash, Home, SectionPage (Eten/Drankjes), CategoryPage.
-- `src/styles.css` — design tokens (exact COMO palette, Playfair Display + DM Sans) and all component styles.
+- `src/data/menu.ts`: all content (sections → categories → items). Shaped like future Sanity documents.
+- `src/components/`: Header, Logo, HeroImage, OrganicCurve, PalmShadows, SectionCard, CategoryRow, MenuItemRow, Price, NavMenu.
+- `src/pages/`: Splash, Home, SectionPage (Eten/Drankjes), CategoryPage.
+- `src/styles.css`: design tokens (exact COMO palette, Playfair Display + DM Sans) and all component styles.
 - Routes: `#/`, `#/eten`, `#/drankjes`, `#/eten/<category>`, `#/drankjes/<category>`.
 
 ## Photos

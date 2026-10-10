@@ -19,7 +19,7 @@ export function Header({ tone = "light", showBack = false, onMenu }: Props) {
             <ArrowLeft />
           </button>
         )}
-        <Link to="/" className="header__logo" aria-label="COMO. — naar home">
+        <Link to="/" className="header__logo" aria-label="COMO., naar home">
           <Logo tone={tone === "photo" ? "white" : "black"} />
         </Link>
       </div>

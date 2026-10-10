@@ -1,9 +1,9 @@
 /* ==========================================================================
-   COMO. — visual system
+   COMO.: visual system
    ========================================================================== */
 
 :root {
-  /* Brand palette — the only colours used. */
+  /* Brand palette: the only colours used. */
   --color-splash: #d5cfc8;
   --color-surface: #ebe7dd;
   --color-bg: #f9f7f3;
@@ -86,7 +86,7 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   Site frame — full width on phones, a centred column on larger screens
+   Site frame: full width on phones, a centred column on larger screens
    -------------------------------------------------------------------------- */
 
 .site {
@@ -421,7 +421,7 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   Category page — menu items
+   Category page: menu items
    -------------------------------------------------------------------------- */
 
 .category__body {
@@ -525,7 +525,7 @@ button {
 }
 
 /* --------------------------------------------------------------------------
-   Navigation overlay — Eten · Drankjes · Home
+   Navigation overlay: Eten · Drankjes · Home
    -------------------------------------------------------------------------- */
 
 .nav {
