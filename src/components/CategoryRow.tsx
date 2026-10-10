@@ -1,5 +1,5 @@
 import type { Category } from "../data/menu"
-import { preload, SIZES } from "../photoSizes"
+import { photoStyle, preload, SIZES } from "../photoSizes"
 import { ArrowRight } from "./Icons"
 import { Link } from "./Link"
 
@@ -25,7 +25,7 @@ export function CategoryRow({ sectionSlug, category, eager = false }: Props) {
           srcSet={category.thumb.srcSet}
           sizes={SIZES.row}
           alt=""
-          style={{ objectPosition: category.thumb.position }}
+          style={photoStyle(category.thumb)}
           loading={eager ? "eager" : "lazy"}
           decoding="async"
         />

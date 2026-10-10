@@ -34,7 +34,17 @@ for (const file of files.sort()) {
     // sharp strips EXIF/XMP metadata by default.
     await input.clone().resize({ width: w }).webp({ quality: QUALITY }).toFile(path.join(OUT, `${name}-${w}.webp`))
   }
-  manifest[name] = unique
+  // Tiny blurred preview, inlined in the app so it shows before any download.
+  const tiny = await input.clone().resize({ width: 24 }).webp({ quality: 40 }).toBuffer()
+  const t = await sharp(tiny).metadata()
+  // Wrapped in an SVG blur filter, so the scaled-up preview looks soft instead of blocky.
+  const svg =
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${t.width} ${t.height}">` +
+    `<filter id="b" color-interpolation-filters="sRGB"><feGaussianBlur stdDeviation="1"/>` +
+    `<feComponentTransfer><feFuncA type="discrete" tableValues="1 1"/></feComponentTransfer></filter>` +
+    `<image width="100%" height="100%" preserveAspectRatio="none" filter="url(#b)" ` +
+    `href="data:image/webp;base64,${tiny.toString("base64")}"/></svg>`
+  manifest[name] = { widths: unique, blur: `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}` }
   if (width < 960) lowRes.push(`${file} (${width}px)`)
 }
 

@@ -8,8 +8,11 @@ export type Photo = {
   src: string
   /** All generated widths, so the browser picks the smallest that is sharp enough. */
   srcSet: string
-  /** URL of the smallest variant. */
-  small: string
+  /** Hero variants, capped at 960px: the layout is at most 480px wide. */
+  heroSrc: string
+  heroSrcSet: string
+  /** Tiny blurred preview as a data URL, painted behind the photo while it loads. */
+  blur: string
   /** CSS object-position: keeps the subject in frame when the image is cropped. */
   position?: string
 }
@@ -45,16 +48,24 @@ export type Section = {
 }
 
 // Variants are generated from photos-src/ by `npm run images`.
+type ManifestEntry = { widths: number[]; blur: string }
+
 const photo = (file: string, position = "50% 50%"): Photo => {
   const name = file.replace(/\.[a-z]+$/i, "")
-  const widths = (manifest as Record<string, number[]>)[name]
-  if (!widths) throw new Error(`Photo "${name}" missing: add it to photos-src/ and run npm run images`)
+  const entry = (manifest as Record<string, ManifestEntry>)[name]
+  if (!entry) throw new Error(`Photo "${name}" missing: add it to photos-src/ and run npm run images`)
+  const { widths, blur } = entry
   const url = (w: number) => `/img/photos/${name}-${w}.webp`
+  const set = (ws: number[]) => ws.map((w) => `${url(w)} ${w}w`).join(", ")
   const mid = widths.find((w) => w >= 640) ?? widths[widths.length - 1]
+  const heroWidths = widths.filter((w) => w <= 960)
+  if (!heroWidths.length) heroWidths.push(widths[0])
   return {
     src: url(mid),
-    srcSet: widths.map((w) => `${url(w)} ${w}w`).join(", "),
-    small: url(widths[0]),
+    srcSet: set(widths),
+    heroSrc: url(heroWidths[heroWidths.length - 1]),
+    heroSrcSet: set(heroWidths),
+    blur,
     position,
   }
 }

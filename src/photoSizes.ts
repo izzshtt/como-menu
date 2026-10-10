@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react"
 import type { Photo } from "./data/menu"
 
 // `sizes` per slot: tells the browser how wide the photo is shown, so it
@@ -11,25 +12,66 @@ export const SIZES = {
 
 export type Slot = keyof typeof SIZES
 
-const warmed = new Set<string>()
+const srcFor = (p: Photo, slot: Slot) => (slot === "hero" ? p.heroSrc : p.src)
+const srcSetFor = (p: Photo, slot: Slot) => (slot === "hero" ? p.heroSrcSet : p.srcSet)
 
-/** Downloads photos in the background, so they show instantly when the page opens. */
-export function preload(photos: Photo[], slot: Slot, immediate = false) {
-  // Respect "data saver" on the guest's phone.
-  const conn = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection
-  if (conn?.saveData) return
-  const run = () => {
-    for (const p of photos) {
-      const key = `${p.srcSet}|${slot}`
-      if (warmed.has(key)) continue
-      warmed.add(key)
+/** Inline style for a photo: crop position plus the blurred preview behind it. */
+export const photoStyle = (p: Photo): CSSProperties => ({
+  objectPosition: p.position,
+  backgroundImage: `url("${p.blur}")`,
+  backgroundSize: "cover",
+  backgroundPosition: p.position,
+})
+
+/** True when the guest's phone asks to save mobile data. */
+export const saveData = () =>
+  Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData)
+
+const loads = new Map<string, Promise<void>>()
+
+/** Downloads a single file now and resolves when it is ready (or failed). Each URL is fetched once. */
+export function loadFile(url: string): Promise<void> {
+  let job = loads.get(url)
+  if (!job) {
+    job = new Promise<void>((resolve) => {
       const img = new Image()
-      img.decoding = "async"
-      img.sizes = SIZES[slot]
-      img.srcset = p.srcSet
-      img.src = p.src
-    }
+      img.onload = () => resolve()
+      img.onerror = () => resolve()
+      img.src = url
+    })
+    loads.set(url, job)
   }
+  return job
+}
+
+/** Downloads now and resolves when every photo is ready (or failed). Each file is fetched once. */
+export function loadNow(photos: Photo[], slot: Slot): Promise<void> {
+  return Promise.all(
+    photos.map((p) => {
+      const srcset = srcSetFor(p, slot)
+      const key = `${srcset}|${slot}`
+      let job = loads.get(key)
+      if (!job) {
+        job = new Promise<void>((resolve) => {
+          const img = new Image()
+          img.decoding = "async"
+          img.onload = () => resolve()
+          img.onerror = () => resolve()
+          img.sizes = SIZES[slot]
+          img.srcset = srcset
+          img.src = srcFor(p, slot)
+        })
+        loads.set(key, job)
+      }
+      return job
+    }),
+  ).then(() => undefined)
+}
+
+/** Background download for photos the guest will probably need next. Skipped on data saver. */
+export function preload(photos: Photo[], slot: Slot, immediate = false) {
+  if (saveData()) return
+  const run = () => void loadNow(photos, slot)
   if (immediate) run()
   else if ("requestIdleCallback" in window) window.requestIdleCallback(run, { timeout: 1500 })
   else setTimeout(run, 200)

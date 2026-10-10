@@ -23,4 +23,4 @@ To replace a photo: put the original (at least 1600 px wide) in `photos-src/` wi
 Still low-res crops from the mockup: churros, eten-card, drankjes-card, home-hero, warme-dranken, koude-dranken.
 A category page uses `hero` if set in `menu.ts`, otherwise the category thumbnail.
 For a dedicated hero, add `<name>-hero.png` (or .jpg) to `photos-src/`, run `npm run images`, and set `hero: photo("<name>-hero")` on that category.
-Loading: thumbnails of both sections are fetched in the background during the splash; a category hero is fetched when the guest touches or hovers that category.
+Loading: every photo has a tiny blurred preview inlined in the app, so no slot is ever empty. The splash stays until Home's photos are loaded (2.2 s minimum, 4 s maximum), then all thumbnails, the white header logo and all category heroes (max 960 px) load in the background. Data saver on the phone skips the background loading.

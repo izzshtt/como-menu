@@ -1,5 +1,5 @@
 import type { Section } from "../data/menu"
-import { SIZES } from "../photoSizes"
+import { photoStyle, SIZES } from "../photoSizes"
 import { ArrowRight } from "./Icons"
 import { Link } from "./Link"
 
@@ -13,7 +13,7 @@ export function SectionCard({ section }: { section: Section }) {
           srcSet={section.card.srcSet}
           sizes={SIZES.card}
           alt=""
-          style={{ objectPosition: section.card.position }}
+          style={photoStyle(section.card)}
           decoding="async"
         />
       </span>

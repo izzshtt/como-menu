@@ -1,27 +1,39 @@
 import { useCallback, useEffect, useState } from "react"
 import { Header } from "./components/Header"
 import { NavMenu } from "./components/NavMenu"
-import { findCategory, findSection, sections } from "./data/menu"
+import { findCategory, findSection, homeHero, sections } from "./data/menu"
 import { CategoryPage } from "./pages/CategoryPage"
 import { Home } from "./pages/Home"
 import { SectionPage } from "./pages/SectionPage"
 import { Splash } from "./pages/Splash"
-import { preload } from "./photoSizes"
+import { loadFile, loadNow, preload, saveData } from "./photoSizes"
 import { parseRoute, usePath } from "./router"
 
 const SPLASH_MS = 2200
 const SPLASH_FADE_MS = 700
+const SPLASH_MAX_MS = 4000
+
+/** Everything Home shows right after the splash. */
+const loadHome = () =>
+  Promise.all([loadNow([homeHero], "hero"), loadNow(sections.map((s) => s.card), "card")])
 
 function useSplash() {
   const [stage, setStage] = useState<"show" | "leaving" | "done">("show")
   useEffect(() => {
     // `?splash` keeps the splash on screen, handy when reviewing it.
     if (new URLSearchParams(window.location.search).has("splash")) return
-    const leave = window.setTimeout(() => setStage("leaving"), SPLASH_MS)
-    const done = window.setTimeout(() => setStage("done"), SPLASH_MS + SPLASH_FADE_MS)
+    let cancelled = false
+    let doneTimer = 0
+    const wait = (ms: number) => new Promise((r) => window.setTimeout(r, ms))
+    // Leave after the minimum time AND once Home's photos are in, but never later than the maximum.
+    Promise.race([Promise.all([wait(SPLASH_MS), loadHome()]), wait(SPLASH_MAX_MS)]).then(() => {
+      if (cancelled) return
+      setStage("leaving")
+      doneTimer = window.setTimeout(() => setStage("done"), SPLASH_FADE_MS)
+    })
     return () => {
-      window.clearTimeout(leave)
-      window.clearTimeout(done)
+      cancelled = true
+      window.clearTimeout(doneTimer)
     }
   }, [])
   return stage
@@ -34,11 +46,19 @@ export function App() {
   const closeMenu = useCallback(() => setMenuOpen(false), [])
   const openMenu = useCallback(() => setMenuOpen(true), [])
 
-  // While the splash shows, fetch the small thumbnails of both sections, so
-  // Eten and Drankjes open with every photo already in place.
+  // Load order: Home photos, then every category thumbnail, then the white header
+  // logo and every category hero. By the time a guest taps a category, its photo is
+  // already on the phone.
   useEffect(() => {
-    preload(sections.map((s) => s.card), "card")
-    preload(sections.flatMap((s) => s.categories.map((c) => c.thumb)), "row")
+    if (saveData()) return
+    const thumbs = sections.flatMap((s) => s.categories.map((c) => c.thumb))
+    const heroes = sections.flatMap((s) => s.categories.map((c) => c.hero ?? c.thumb))
+    loadHome()
+      .then(() => loadNow(thumbs, "row"))
+      .then(() => {
+        void loadFile("/img/logo/como-white.png")
+        preload(heroes, "hero", true)
+      })
   }, [])
 
   const route = parseRoute(path)
