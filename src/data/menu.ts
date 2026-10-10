@@ -156,8 +156,7 @@ export const sections: Section[] = [
         slug: "french-toast",
         title: "French Toast",
         intro: "Brioche, goudbruin gebakken.",
-        // Placeholder photo until COMO supplies a French Toast photo (add french-toast.png to photos-src/).
-        thumb: photo("pancakes", "50% 50%"),
+        thumb: photo("french-toast", "50% 50%"),
         items: [
           {
             name: "French Toast",

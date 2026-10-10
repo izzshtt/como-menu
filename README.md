@@ -20,7 +20,7 @@ Originals live in `photos-src/`. `npm run images` (also runs automatically befor
 turns them into responsive WebP files in `public/img/photos/` (320, 640, 960, 1600 px, metadata stripped)
 and writes `src/data/photo-manifest.json`. The browser downloads only the size it needs.
 To replace a photo: put the original (at least 1600 px wide) in `photos-src/` with the same name and run `npm run images`.
-Still low-res crops from the mockup: churros, eten-card, drankjes-card, home-hero, warme-dranken, koude-dranken.
+Still a low-res crop from the mockup: home-hero.
 A category page uses `hero` if set in `menu.ts`, otherwise the category thumbnail.
 For a dedicated hero, add `<name>-hero.png` (or .jpg) to `photos-src/`, run `npm run images`, and set `hero: photo("<name>-hero")` on that category.
 Loading: every photo has a tiny blurred preview inlined in the app, so no slot is ever empty. The splash stays until Home's photos are loaded (2.2 s minimum, 4 s maximum), then all thumbnails, the white header logo and all category heroes (max 960 px) load in the background. Data saver on the phone skips the background loading.
