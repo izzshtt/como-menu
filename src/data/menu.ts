@@ -99,19 +99,6 @@ export const sections: Section[] = [
         ],
       },
       {
-        slug: "croissant",
-        title: "Croissant",
-        intro: "Vers afgebakken, elke ochtend tot 11:00 uur.",
-        thumb: photo("croissant.webp", "40% 50%"),
-        hero: photo("croissant.webp", "50% 55%"),
-        items: [
-          { name: "Luxe Croissant Naturel", price: 3 },
-          { name: "Luxe Croissant Kaas", price: 4 },
-          { name: "Luxe Croissant Nutella", price: 4.5 },
-          { name: "Luxe Croissant Jam", price: 3.5 },
-        ],
-      },
-      {
         slug: "panini",
         title: "Panini",
         intro: "Knapperig gegrild en royaal belegd.",
@@ -274,8 +261,8 @@ export const sections: Section[] = [
         ],
       },
       {
-        slug: "matcha-lattes",
-        title: "Matcha Latte’s",
+        slug: "iced-matcha",
+        title: "Iced Matcha",
         intro: "Romige matcha, ijskoud geserveerd.",
         thumb: photo("matcha.webp", "50% 45%"),
         hero: photo("matcha.webp", "50% 45%"),
