@@ -70,7 +70,7 @@ const photo = (file: string, position = "50% 50%"): Photo => {
   }
 }
 
-export const homeHero = photo("home-hero", "50% 62%")
+export const homeHero = photo("pancakes-hero", "50% 55%")
 
 export const sections: Section[] = [
   {
